@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net;">
+    <title>방사선 통계 생성기</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <p class="subtitle">파일 변환, 통계 생성, 시각화까지 한 번에</p>
+        <h1>📊 방사선 통계 생성기</h1>
+      </header>
+
+      <section class="section-box">
+        <h2>📥 데이터 처리</h2>
+        <button id="run-all-import">📂 XLS  CSV -> DB 저장</button>
+        <p id="import-result"></p>
+      </section>
+
+      <section class="section-box">
+        <h2>📑 통계 파일 생성</h2>
+        <div class="input-group">
+          <label for="target-month">📅 통계 월:</label>
+          <input type="month" id="target-month" value="2025-04" />
+          <button id="generate-excel">📊 통계 생성</button>
+        </div>
+        <p id="excel-result"></p>
+      </section>
+
+      <section calss="section-box">
+        <h2>📈 검사 수 차트</h2>
+        <div class="chart-controls">
+          <label for="xType">📏 x축 단위:</label>
+          <select id="xType">
+            <option value="day">일별</option>
+            <option value="week">주별</option>
+            <option value="month" selected>월별</option>
+          </select>
+
+          <label for="device">🖥 장비:</label>
+          <select id="device">
+            <option value="CR">CR</option>
+            <option value="CT">CT</option>
+            <option value="MR">MR</option>
+            <option value="US">US</option>
+          </select>
+        </div>
+
+        <div class="chart-controls extra">
+          <label for="start-date">🔽 시작일:</label>
+          <input type="date" id="start-date" />
+
+          <label for="start-date">🔼 종료일:</label>
+          <input type="date" id="end-date" />
+
+          <button id="showchart">📈 차트 보기</button>
+        </div>
+
+        <div id="chart-container">
+          <canvas id="chart"></canvas>
+        </div>
+      </section>
+    </div>
+
+    <footer style="text-align: right; font-size: 0.8rem; opacity: 0.6; margin-top: 2rem;">
+      <span id="app-version"></span>
+    </footer>
+
+    <script src="renderer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.js"></script>
+  </body>
+</html>
+

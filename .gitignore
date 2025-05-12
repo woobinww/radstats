@@ -1,0 +1,28 @@
+# 📁 빌드 아웃풋
+release/
+RadStats-win32-x64*/  # 중복 제거 가능
+
+# 📦 Node.js modules
+node_modules/
+
+# 📂 데이터 및 출력
+db/
+data/
+reports/
+
+# 🧪 로그 및 임시
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# ⛔ 환경 또는 OS별 파일
+.env
+Thumbs.db
+
+# 🚫 백업 및 에디터 관련
+*.bak
+*.swp
+.idea/
+.vscode/

@@ -1,0 +1,151 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+:root {
+  --bg: #1a1b26;
+  --bg-alt: #16161e;
+  --fg: #c0caf5;
+  --accent-blue: #7aa2f7;
+  --accent-purple: #bb9af7;
+  --accent-green: #9ece6a;
+  --accent-red: #f7768e;
+  --accent-yellow: #e0af68;
+  --border: #3b4261;
+  --font: 'Pretendard', sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--fg);
+  padding: 2rem;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-purple);
+}
+
+.subtitle {
+  color: var(--accent-yellow);
+  font-size: 1rem;
+}
+
+.section-box {
+  background-color: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--accent-green);
+}
+
+.input-group,
+.chart-controls {
+  display: flex;
+  flex-wrap: nowrap; /* 줄바꿈 방지*/
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  overflow-x: auto;  /* 좁은 창에서 스크롤 가능 */
+}
+
+.chart-controls.extra {
+  margin-top: 0.2rem;
+  flex-wrap: wrap; /* 좁은 화면 대응 */
+}
+
+.chart-controls label {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.chart-controls select,
+.chart-controls input[type="date"] {
+  min-width: 110px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+}
+
+.chart-controls button {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+button {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--accent-purple);
+}
+
+input[type="date"],
+input[type="month"],
+select {
+  background-color: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+#chart-container {
+  margin-top: 1rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.95rem;
+  color: var(--accent-yellow);
+}
+
+#app-version {
+  position: fixed;
+  bottom: 10px;
+  right: 16px;
+  color: var(--accent-yellow);
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+
+
+
