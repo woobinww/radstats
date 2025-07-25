@@ -100,6 +100,13 @@ sheetMaps['총 통계']['US|*|*|!복부|!abdo|!Doppler|!dopper'] = getWildcardCe
 console.log(sheetMaps['총 통계']);
 
 
+
+
+
+
+
+
+
 // "항목별 통계" 시트 타겟 월 구성
 function generateLastYearToCurrentMonths(targetMonth) {
   const [targetYearStr, targetMonStr] = targetMonth.split('-').map(Number);
