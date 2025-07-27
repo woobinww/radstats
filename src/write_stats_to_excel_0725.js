@@ -23,7 +23,7 @@ const colLetters = 'BCDEFGHIJKLMN'.split('');
 
 const sheetMaps = {};
 
-// 총 통계 sheet Mapping
+// -----총 통계-----
 sheetMaps['총 통계'] = {};
 
 const getCell = (doctorIndex, wardIndex, row) =>
@@ -98,6 +98,89 @@ sheetMaps['총 통계']['US|*|*|!복부|!abdo|!Doppler|!dopper'] = getWildcardCe
 
 // 결과 확인
 console.log(sheetMaps['총 통계']);
+
+// ----MRI 시트----
+sheetMaps['MRI'] = {};
+const bodyParts_MRI = [
+  'brain', 'c-spine', 't-spine', 'l-spine',
+  'shoulder', 'elbow', 'wrist', 'hand',
+  'hip', 'knee', 'ankle', 'foot',
+  'enhance'
+];
+
+const rowStartMRI = 4;
+const etcPartRow = 19;
+const totalMRIRow = 20;
+
+const getCell_MRI = (doctorIndex, bodyPartIndex) => 
+  `${colLetters[doctorIndex]}${bodyPartIndex+rowStartMRI}`;
+
+// 바디파트별 MRI 건수
+doctors.forEach((doctor, i) => {
+  bodyParts_MRI.forEach((bodyPart, j) => {
+    const key = `MR|${doctor}|*|${bodyPart}`;
+    sheetMaps['MRI'][key] = getCell_MRI(i, j);
+  });
+  const etcMR = bodyParts_MRI.map(bodyPart => `!${bodyPart}`).join('|');
+  sheetMaps['MRI'][`MR|${doctor}|*|${etcMR}`] = `${colLetters[i]}${etcPartRow}`;
+
+  sheetMaps['MRI'][`MR|${doctor}|*`] = `${colLetters[i]}${totalMRIRow}`;
+});
+
+
+
+// ----- CT 시트 -----
+sheetMaps['CT'] = {};
+const bodyParts_CT = [
+  'brain', 'pns', 'facial',
+  'brain|pns|facial',
+  'c-spine|!3d', 't-spine|!3d',
+  'l-spine|!3d', 'tl-spine|!3d',
+  'spine+3d','spine',
+  'pelvis|hip|!3d',
+  'pelvis cbct 3d|hip cbct 3d',
+  'pelvis|hip',
+  'foot|!3d',
+  'ankle|!3d',
+  'knee|!3d',
+  'tibia|!3d',
+  'thigh|femur|!3d',
+  'foot|ankle|knee|tibia|thigh|femur|!3d',
+  'foot+3d',
+  'ankle+3d',
+  'knee+3d',
+  'tibia+3d',
+  'thigh cbct 3d|femur cbct 3d',
+  'foot cbct 3d|ankle cbct 3d|knee cbct 3d|tibia cbct 3d|thigh cbct 3d|femur cbct 3d',
+  'hand|!3d',
+  'wrist|!3d',
+  'forearm|!3d',
+  'elbow|!3d',
+  'shoulder|!3d',
+  'humerus|!3d',
+  'hand|wrist|forearm|elbow|shoulder|humerus|!3d',
+  'hand+3d',
+  'wrist+3d',
+  'forearm+3d',
+  'elbow+3d',
+  'shoulder+3d',
+  'humerus+3d',
+  'hand cbct 3d|wrist cbct 3d|forearm cbct 3d|elbow cbct 3d|shoulder cbct 3d|humerus cbct 3d',
+  '!brain|!pns|!facial|!spine|!pelvis|!hip|!foot|!ankle|!knee|!tibia|!thigh|!femur|!hand|!wrist|!forearm|!elbow|!shoulder|!humerus',
+  ''
+]
+
+const getCell_CT = (doctorIndex, bodyPartIndex) =>
+  `${colLetters[doctorIndex+1]}${bodyPartIndex+4}`;
+
+doctors.forEach((doctor, i) => {
+  bodyParts_CT.forEach((bodyPart, j) => {
+    const key = `CT|${doctor}|*|${bodyPart}`;
+    sheetMaps['CT'][key] = getCell_CT(i, j);
+  });
+});
+
+
 
 
 
