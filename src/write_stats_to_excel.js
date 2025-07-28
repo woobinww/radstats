@@ -3,16 +3,13 @@ const ExcelJS = require('exceljs');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
+
+
 
 // 입력할 대상 월
 // const targetMonth = '2025-04';
 
-// DB 및 템플릿 파일 경로
-const dbPath = path.join(__dirname, '../db/database.sqlite');
-const templatePath = path.join(__dirname, '../templates/stat_form.xlsx');
-// 저장할 파일 경로 없으면 자동 생성
-const reportsDir = path.join(__dirname, '../reports');
-if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir);
 
 
 // 조건별 셀 매핑 (검사명 키워드는 없으면 null, 있으면 OR조건으로 사용)
@@ -46,7 +43,7 @@ modalities.forEach(modality => {
   doctors.forEach((doctor, i) => {
     wards.forEach((ward, j) => {
       const key = `${modality}|${doctor}|${ward}`;
-      sheetMaps['총통계'][key] = getCell(i, j, row);
+      sheetMaps['총 통계'][key] = getCell(i, j, row);
     });
   });
   sheetMaps['총 통계'][`${modality}|*|*`] = getWildcardCell(row);
@@ -228,15 +225,20 @@ function createStatRowMap(lastYear, currentYear) {
 
 
 // 메인 함수
-async function writeStatistics(targetMonth) {
+async function writeStatistics(targetMonth, userData) {
+  const dbPath = path.join(userData, 'db', 'database.sqlite')
+  const templatePath = path.join(__dirname, '../templates/stat_form.xlsx');
   const db = new sqlite3.Database(dbPath);
+  // 저장할 파일 경로 없으면 자동 생성
+  const reportsDir = path.join(userData, 'reports');
+  if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir, { recursive: true });
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile(templatePath);
 
   const [year, month] = targetMonth.split('-');
   const outputPath = path.join(
-    __dirname,
-    `../reports/${year}_${month}_영상의학과_월간통계.xlsx`
+    reportsDir,
+    `${year}_${month}_영상의학과_월간통계.xlsx`
   );
 
   for (const sheetName in sheetMaps) {
@@ -390,7 +392,7 @@ async function writeStatistics(targetMonth) {
 
   await workbook.xlsx.writeFile(outputPath);
   db.close();
-  console.log(`✅ ${targetMonth} 엑셀 저장 완료 → ${outputPath}`);
+  return `✅ ${targetMonth} 엑셀 저장 완료 → ${outputPath}`;
 }
 
 module.exports = { writeStatistics };

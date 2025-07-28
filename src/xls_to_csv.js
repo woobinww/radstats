@@ -2,12 +2,20 @@ const xlsx = require("xlsx");
 const fs = require("fs");
 const path = require("path");
 
-// 변환할 폴더 경로
-const rawFolder = path.join(__dirname, "../data/raw_xls");
-const convertedFolder = path.join(__dirname, "../data/converted_csv");
+/*
+  * xls 또는 xlsx 파일을 csv로 변환
+  * @param {string} userDataPath - 사용자 데이터 루트 경로
+  * @return {string} - 변환 결과 메세지
+*/
 
-function convertXlsToCsv() {
+function convertXlsToCsv(userDataPath) {
+  const rawFolder = path.join(userDataPath, "data", "raw_xls");
+  const convertedFolder = path.join(userDataPath, "data", "converted_csv");
   const results = [];
+
+  // 폴더 없으면 생성
+  fs.mkdirSync(rawFolder, { recursive: true })
+  fs.mkdirSync(convertedFolder, { recursive: true })
 
   // .xls 파일을 순회하며 .csv로 변환
   fs.readdirSync(rawFolder).forEach((file) => {

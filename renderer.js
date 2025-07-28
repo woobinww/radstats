@@ -46,3 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
     versionTag.textContent = `v${window.api.getAppVersion()}`;
   }
 });
+
+
+// 폴더 열기
+document.getElementById('open-rawdata').addEventListener('click', () => {
+  try {
+    window.api.openFolder('data/raw_xls');
+  } catch (e) {
+    document.getElementById('folder-result').textContent = `❌ 폴더 열기 실패: ${e.message}`;
+  }
+});
+
+document.getElementById('open-reports').addEventListener('click', () => {
+  try {
+    window.api.openFolder('reports');
+  } catch (e) {
+    document.getElementById('folder-result').textContent = `❌ 폴더 열기 실패: ${e.message}`;
+  }
+});

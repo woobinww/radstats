@@ -1,10 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = path.join(__dirname, '../db/database.sqlite');
 
-function getChartData(xType, device, startDate, endDate) {
+function getChartData(xType, device, startDate, endDate, userDataPath) {
   return new Promise((resolve, reject) => {
+    const dbPath = path.join(userDataPath, 'db', 'database.sqlite');
     const db = new sqlite3.Database(dbPath);
 
     let groupByClause = '';

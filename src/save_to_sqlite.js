@@ -3,11 +3,13 @@ const fs = require("fs");
 const path = require("path");
 const { parse } = require("csv-parse/sync");
 
-function saveToDB() {
+function saveToDB(userDataPath) {
   return new Promise((resolve, reject) => {
     
     // db 연결
-    const dbPath = path.join(__dirname, "../db/database.sqlite");
+    const dbPath = path.join(userDataPath, "db", "database.sqlite");
+    fs.mkdirSync(path.dirname(dbPath), { recursive: true })
+
     const db = new sqlite3.Database(dbPath, (err) => {
       if (err) return reject(err);
     });
@@ -43,7 +45,8 @@ function saveToDB() {
     });
     
     // CSV 파일 읽기
-    const csvFolder = path.join(__dirname, "../data/converted_csv");
+    const csvFolder = path.join(userDataPath, "data", "converted_csv");
+    fs.mkdirSync(csvFolder, { recursive: true })
     // 가져온 파일 목록 확인
     const files = fs.readdirSync(csvFolder).filter(f => f.endsWith(".csv"));
     // 파일 카운트
